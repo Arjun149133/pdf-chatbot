@@ -1,14 +1,16 @@
 from fastapi import FastAPI, UploadFile
 from utils import extract_pdf_text, chunk_text, create_faiss_index
 from sentence_transformers import SentenceTransformer
-
+import os
+from dotenv import load_dotenv
 from openai import OpenAI
-#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
+
+load_dotenv()
 
 app = FastAPI()
 client = OpenAI(
   base_url="https://openrouter.ai/api/v1",
-  api_key="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",
+  api_key= os.getenv("OPENROUTER_API_KEY")
 )
 
 chunks = []
